@@ -69,15 +69,14 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   const onChange = (isTrue, product) => {
-    let productCategory = selectProductWithCategory
+    const productCategory = selectProductWithCategory
 
     if (isTrue) {
       productCategory.push({ ...product })
     } else {
       productCategory = productCategory.filter((prod) => prod.id !== product.id)
     }
-    console.log(productCategory)
-    setSelectProductWithCategory(productCategory)
+    setSelectProductWithCategory([...productCategory])
   }
 
   return (
