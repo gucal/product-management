@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 
 import Context from '../context/store'
 
 function Category({ categoryName, categoryID, categoryProducts }) {
   const { state, dispatch } = useContext(Context)
+
+  const [selectProductWithCategory, setSelectProductWithCategory] = useState([])
 
   const removeCategory = () => {
     let categories = state.categories
@@ -20,7 +22,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
     let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
     categories[currentCategory] = {
       ...categories[currentCategory],
-      products: state.selectedProducts,
+      products: [...categories[currentCategory].products, ...state.selectedProducts],
     }
     var newFreeProducts = freeProducts.filter(
       (free) => !selectedProducts.find((selected) => free.id == selected.id)
@@ -33,12 +35,49 @@ function Category({ categoryName, categoryID, categoryProducts }) {
       type: 'CATEGORIES',
       payload: categories,
     })
+    dispatch({
+      type: 'SELECTED_PRODUCT',
+      payload: [],
+    })
   }
 
   const removeProduct = () => {
-    const { categories } = state
+    let categories = state.categories
+    let allProducts = state.freeProducts
     let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
-    console.log(categories[currentCategory])
+    const categoryProducts = categories[currentCategory].products
+
+    categoryProducts = categoryProducts.filter(
+      (free) => !selectProductWithCategory.find((selected) => free.id == selected.id)
+    )
+
+    categories[currentCategory] = { ...categories[currentCategory], products: categoryProducts }
+
+    dispatch({
+      type: 'CATEGORIES',
+      payload: categories,
+    })
+    selectProductWithCategory.map((prod) => {
+      allProducts.push(prod)
+    })
+    dispatch({
+      type: 'SET_ALL_PRODUCTS',
+      payload: allProducts,
+    })
+
+    setSelectProductWithCategory([])
+  }
+
+  const onChange = (isTrue, product) => {
+    let productCategory = selectProductWithCategory
+
+    if (isTrue) {
+      productCategory.push({ ...product })
+    } else {
+      productCategory = productCategory.filter((prod) => prod.id !== product.id)
+    }
+    console.log(productCategory)
+    setSelectProductWithCategory(productCategory)
   }
 
   return (
@@ -51,8 +90,14 @@ function Category({ categoryName, categoryID, categoryProducts }) {
           {categoryProducts.map((product, index) => (
             <div key={index} className="my-4">
               <div key={product.id} className="my-2 flex items-center">
-                <input type="checkbox" />
-                <label className="text-sm mx-4">{product.name}</label>
+                <input
+                  onChange={(e) => onChange(e.target.checked, product)}
+                  id={'category-prod' + product.id}
+                  type="checkbox"
+                />
+                <label htmlFor={'category-prod' + product.id} className="text-sm mx-4">
+                  {product.name}
+                </label>
               </div>
             </div>
           ))}
@@ -60,6 +105,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
         <div className="flex justify-between">
           <div className="flex space-x-4">
             <button
+              disabled={state.selectedProducts.length < 1}
               onClick={() => addProduct()}
               className={`${
                 state.selectedProducts.length > 0
@@ -70,8 +116,13 @@ function Category({ categoryName, categoryID, categoryProducts }) {
               Add Products
             </button>
             <button
+              disabled={selectProductWithCategory.length < 1}
               onClick={removeProduct}
-              className="bg-gray-400 py-1 px-2 rounded-sm text-gray-100"
+              className={`${
+                selectProductWithCategory.length > 0
+                  ? 'bg-blue-700 text-white'
+                  : 'bg-gray-400 text-gray-100'
+              } py-1 px-2 rounded-sm`}
             >
               Remove Products
             </button>
