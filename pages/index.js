@@ -25,12 +25,27 @@ function Home() {
   return (
     <Container>
       <div className="flex justify-between space-x-3 py-3">
-        <div className="w-full p-3 border border-gray-300 rounded">
-          <span>Available Products</span>
-          {state.freeProducts.map((product, index) => (
-            <Product key={index} product={product} />
-          ))}
+        <div className="flex-col w-full space-y-3">
+          <div className="w-full p-3 border border-gray-300 rounded">
+            <span>Available Products</span>
+            {state.freeProducts.map((product, index) => (
+              <Product key={index} product={product} />
+            ))}
+          </div>
+          <div className="w-full p-3 border border-blue-700 rounded">
+            <span className="text-blue-700">Review</span>
+            <div className="my-4">
+              <p className="my-4">Available Products: {state.freeProducts.length}</p>
+              <p className="my-4">Categories: {state.categories.length}</p>
+              {state.categories.map((category, index) => (
+                <p className="my-4" key={index}>
+                  {category.name} : {category.products.length}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
+
         <div className="w-full space-y-3">
           {state.categories.map((category, index) => (
             <Category
