@@ -9,7 +9,7 @@ export function reducer(state, action) {
       return { ...state }
 
     case 'SET_ALL_PRODUCTS':
-      state.freeProducts = action.payload
+      state.availableProducts = action.payload
       return { ...state }
 
     default:

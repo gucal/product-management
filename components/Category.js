@@ -11,7 +11,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
 
   const removeCategory = () => {
     let categories = state.categories
-    let allProducts = state.freeProducts
+    let allProducts = state.availableProducts
     categories = state.categories.filter((category) => category.id != categoryID)
 
     categoryProducts.map((prod) => {
@@ -30,14 +30,14 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   const addProduct = () => {
-    const { freeProducts, selectedProducts } = state
+    const { availableProducts, selectedProducts } = state
     let categories = state.categories
     let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
     categories[currentCategory] = {
       ...categories[currentCategory],
       products: [...categories[currentCategory].products, ...state.selectedProducts],
     }
-    var newFreeProducts = freeProducts.filter(
+    var newFreeProducts = availableProducts.filter(
       (free) => !selectedProducts.find((selected) => free.id == selected.id)
     )
     dispatch({
@@ -56,7 +56,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
 
   const removeProduct = () => {
     let categories = state.categories
-    let allProducts = state.freeProducts
+    let allProducts = state.availableProducts
     let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
     const categoryProducts = categories[currentCategory].products
 

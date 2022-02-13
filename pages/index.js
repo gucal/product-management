@@ -11,15 +11,15 @@ function Home() {
   const { state, dispatch } = useContext(Context)
 
   const addCategory = () => {
-    let categoryData = state.categories
-    categoryData.push({
+    let newCategory = state.categories
+    newCategory.push({
       id: uuidv4(),
       name: `Category ${state.categories.length + 1}`,
       products: [],
     })
     dispatch({
       type: 'CATEGORIES',
-      payload: categoryData,
+      payload: newCategory,
     })
   }
 
@@ -32,7 +32,7 @@ function Home() {
               <BsBox size={30} className="mr-3" /> Available Products
             </span>
             <div className="mt-8">
-              {state.freeProducts.map((product, index) => (
+              {state.availableProducts.map((product, index) => (
                 <Product key={index} product={product} />
               ))}
             </div>
@@ -43,7 +43,7 @@ function Home() {
               Review
             </span>
             <div className="mt-8">
-              <p>Available Products: {state.freeProducts.length}</p>
+              <p>Available Products: {state.availableProducts.length}</p>
               <p>Categories: {state.categories.length}</p>
               <div className="my-6">
                 {state.categories.map((category, index) => (
