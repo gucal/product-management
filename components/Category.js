@@ -9,7 +9,18 @@ function Category({ categoryName, categoryID, categoryProducts }) {
 
   const removeCategory = () => {
     let categories = state.categories
+    let allProducts = state.freeProducts
     categories = state.categories.filter((category) => category.id != categoryID)
+
+    categoryProducts.map((prod) => {
+      allProducts.push(prod)
+    })
+
+    dispatch({
+      type: 'SET_ALL_PRODUCTS',
+      payload: allProducts,
+    })
+
     dispatch({
       type: 'CATEGORIES',
       payload: categories,
@@ -105,7 +116,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
           <div className="flex space-x-4">
             <button
               disabled={state.selectedProducts.length < 1}
-              onClick={() => addProduct()}
+              onClick={addProduct}
               className={`${
                 state.selectedProducts.length > 0
                   ? 'bg-blue-700 text-white'

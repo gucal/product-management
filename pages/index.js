@@ -41,7 +41,7 @@ function Home() {
           ))}
           <div>
             <button
-              onClick={() => addCategory()}
+              onClick={addCategory}
               className="bg-blue-700 text-white w-full p-2 rounded"
             >
               Add Category
