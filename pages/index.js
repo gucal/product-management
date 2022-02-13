@@ -24,8 +24,8 @@ function Home() {
 
   return (
     <Container>
-      <div className="flex justify-between space-x-3 py-3">
-        <div className="flex-col w-full space-y-3">
+      <div className="grid grid-cols-2 gap-4 space-x-3 py-3">
+        <div className="flex flex-col w-full space-y-3 h-96">
           <div className="w-full p-3 border border-gray-300 rounded">
             <span>Available Products</span>
             {state.freeProducts.map((product, index) => (
@@ -36,7 +36,7 @@ function Home() {
             <span className="text-blue-700">Review</span>
             <div className="my-4">
               <p className="my-4">Available Products: {state.freeProducts.length}</p>
-              <p className="my-4">Categories: {state.categories.length}</p>
+              <p>Categories: {state.categories.length}</p>
               {state.categories.map((category, index) => (
                 <p className="my-4" key={index}>
                   {category.name} : {category.products.length}

@@ -91,8 +91,8 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   return (
-    <div className="p-3 border border-gray-300 rounded min-h-full">
-      <div className="flex-col justify-between">
+    <div className="flex flex-col justify-between p-3 border border-gray-300 rounded min-h-full">
+      <div>
         <div>
           <span>{categoryName}</span>
         </div>
@@ -112,42 +112,42 @@ function Category({ categoryName, categoryID, categoryProducts }) {
             </div>
           ))}
         </div>
-        <div className="flex justify-between">
-          <div className="flex space-x-4">
-            <button
-              disabled={state.selectedProducts.length < 1}
-              onClick={addProduct}
-              className={`${
-                state.selectedProducts.length > 0
-                  ? 'bg-blue-700 text-white'
-                  : 'bg-gray-400 text-gray-100'
-              } py-1 px-2 rounded-sm`}
-            >
-              Add Products
-            </button>
-            <button
-              disabled={selectProductWithCategory.length < 1}
-              onClick={removeProduct}
-              className={`${
-                selectProductWithCategory.length > 0
-                  ? 'bg-blue-700 text-white'
-                  : 'bg-gray-400 text-gray-100'
-              } py-1 px-2 rounded-sm`}
-            >
-              Remove Products
-            </button>
-          </div>
-          <div>
-            <button
-              disabled={state.categories.length == 1}
-              onClick={removeCategory}
-              className={`${
-                state.categories.length > 1 ? 'bg-blue-700 text-white' : 'bg-gray-400 text-gray-100'
-              } py-1 px-2 rounded-sm`}
-            >
-              Remove Category
-            </button>
-          </div>
+      </div>
+      <div className="flex justify-between">
+        <div className="flex space-x-4">
+          <button
+            disabled={state.selectedProducts.length < 1}
+            onClick={addProduct}
+            className={`${
+              state.selectedProducts.length > 0
+                ? 'bg-blue-700 text-white'
+                : 'bg-gray-400 text-gray-100'
+            } py-1 px-2 rounded-sm`}
+          >
+            Add Products
+          </button>
+          <button
+            disabled={selectProductWithCategory.length < 1}
+            onClick={removeProduct}
+            className={`${
+              selectProductWithCategory.length > 0
+                ? 'bg-blue-700 text-white'
+                : 'bg-gray-400 text-gray-100'
+            } py-1 px-2 rounded-sm`}
+          >
+            Remove Products
+          </button>
+        </div>
+        <div>
+          <button
+            disabled={state.categories.length == 1}
+            onClick={removeCategory}
+            className={`${
+              state.categories.length > 1 ? 'bg-blue-700 text-white' : 'bg-gray-400 text-gray-100'
+            } py-1 px-2 rounded-sm`}
+          >
+            Remove Category
+          </button>
         </div>
       </div>
     </div>
