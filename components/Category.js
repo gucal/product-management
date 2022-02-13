@@ -124,7 +124,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
                 : 'bg-gray-400 text-gray-100'
             } py-1 px-2 rounded-sm`}
           >
-            Add Products
+            Add {state.selectedProducts.length > 0 && state.selectedProducts.length} Products
           </button>
           <button
             disabled={selectProductWithCategory.length < 1}
@@ -135,7 +135,8 @@ function Category({ categoryName, categoryID, categoryProducts }) {
                 : 'bg-gray-400 text-gray-100'
             } py-1 px-2 rounded-sm`}
           >
-            Remove Products
+            Remove {selectProductWithCategory.length > 0 && selectProductWithCategory.length}{' '}
+            Products
           </button>
         </div>
         <div>

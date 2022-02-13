@@ -34,14 +34,16 @@ function Home() {
           </div>
           <div className="w-full p-3 border border-blue-700 rounded">
             <span className="text-blue-700">Review</span>
-            <div className="my-4">
-              <p className="my-4">Available Products: {state.freeProducts.length}</p>
+            <div className="my-6">
+              <p>Available Products: {state.freeProducts.length}</p>
               <p>Categories: {state.categories.length}</p>
-              {state.categories.map((category, index) => (
-                <p className="my-4" key={index}>
-                  {category.name} : {category.products.length}
-                </p>
-              ))}
+              <div className="my-6">
+                {state.categories.map((category, index) => (
+                  <p key={index}>
+                    {category.name} : {category.products.length}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
