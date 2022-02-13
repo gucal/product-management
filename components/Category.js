@@ -100,7 +100,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   return (
-    <div className="flex flex-col justify-between p-3 border border-gray-300 rounded h-full">
+    <div className="flex flex-col justify-between p-3 border border-gray-300 rounded">
       <div>
         <div>
           <span className="flex items-center">
@@ -108,6 +108,16 @@ function Category({ categoryName, categoryID, categoryProducts }) {
             {categoryName}
           </span>
         </div>
+        {categoryProducts.length < 1 && (
+          <div className="flex flex-col items-center mt-8 text-gray-400">
+            <div>
+              <MdOutlineFavoriteBorder size={30} />
+            </div>
+            <div>
+              <span>Select products to add here.</span>
+            </div>
+          </div>
+        )}
         <div className="mt-8">
           {categoryProducts.map((product, index) => (
             <div key={index} className="my-4">
@@ -123,19 +133,9 @@ function Category({ categoryName, categoryID, categoryProducts }) {
               </div>
             </div>
           ))}
-          {categoryProducts.length < 1 && (
-            <div className="flex flex-col items-center text-gray-400">
-              <div>
-                <MdOutlineFavoriteBorder size={30} />
-              </div>
-              <div>
-                <span>Select products to add here.</span>
-              </div>
-            </div>
-          )}
         </div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-8">
         <div className="flex space-x-4">
           <button
             disabled={state.selectedProducts.length < 1}
