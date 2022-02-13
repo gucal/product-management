@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
+import Head from 'next/head'
 import { v4 as uuidv4 } from 'uuid'
 import { BsBox } from 'react-icons/bs'
 import { FiSave } from 'react-icons/fi'
@@ -25,6 +26,9 @@ function Home() {
 
   return (
     <Container>
+      <Head>
+        <title>Product Management</title>
+      </Head>
       <div className="grid grid-cols-2 gap-4 space-x-3 py-3">
         <div className="flex flex-col w-full space-y-3 h-96">
           <div className="w-full p-3 border border-gray-300 rounded">
