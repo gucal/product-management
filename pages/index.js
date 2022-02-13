@@ -48,7 +48,7 @@ function Home() {
               <div className="my-6">
                 {state.categories.map((category, index) => (
                   <p key={index}>
-                    {category.name} : {category.products.length}
+                    {category.name}: {category.products.length} products
                   </p>
                 ))}
               </div>
