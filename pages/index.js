@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import Category from '../components/Category'
 import Product from '../components/Product'
@@ -11,7 +12,7 @@ function Home() {
   const addCategory = () => {
     let categoryData = state.categories
     categoryData.push({
-      id: state.categories.length + 1,
+      id: uuidv4(),
       name: `Category ${state.categories.length + 1}`,
       products: [],
     })
@@ -40,10 +41,7 @@ function Home() {
             />
           ))}
           <div>
-            <button
-              onClick={addCategory}
-              className="bg-blue-700 text-white w-full p-2 rounded"
-            >
+            <button onClick={addCategory} className="bg-blue-700 text-white w-full p-2 rounded">
               Add Category
             </button>
           </div>
