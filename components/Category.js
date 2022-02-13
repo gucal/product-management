@@ -9,44 +9,27 @@ function Category({ categoryName, categoryID, categoryProducts }) {
 
   const [selectProductWithCategory, setSelectProductWithCategory] = useState([])
 
-  const removeCategory = () => {
-    let categories = state.categories
-    let allProducts = state.availableProducts
-    categories = state.categories.filter((category) => category.id != categoryID)
-
-    categoryProducts.map((prod) => {
-      allProducts.push(prod)
-    })
-
-    dispatch({
-      type: 'SET_ALL_PRODUCTS',
-      payload: allProducts,
-    })
-
-    dispatch({
-      type: 'CATEGORIES',
-      payload: categories,
-    })
-  }
-
   const addProduct = () => {
     const { availableProducts, selectedProducts } = state
-    let categories = state.categories
-    let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
-    categories[currentCategory] = {
-      ...categories[currentCategory],
-      products: [...categories[currentCategory].products, ...state.selectedProducts],
+    let allCategories = state.categories
+    let currentCategoryIndex = state.categories.findIndex((category) => category.id == categoryID)
+
+    allCategories[currentCategoryIndex] = {
+      ...allCategories[currentCategoryIndex],
+      products: [...allCategories[currentCategoryIndex].products, ...state.selectedProducts],
     }
-    var newFreeProducts = availableProducts.filter(
+
+    let remainderAvailableProducts = availableProducts.filter(
       (free) => !selectedProducts.find((selected) => free.id == selected.id)
     )
+
     dispatch({
       type: 'SET_ALL_PRODUCTS',
-      payload: newFreeProducts,
+      payload: remainderAvailableProducts,
     })
     dispatch({
       type: 'CATEGORIES',
-      payload: categories,
+      payload: allCategories,
     })
     dispatch({
       type: 'SELECTED_PRODUCT',
@@ -55,30 +38,54 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   const removeProduct = () => {
-    let categories = state.categories
-    let allProducts = state.availableProducts
-    let currentCategory = state.categories.findIndex((category) => category.id == categoryID)
-    const categoryProducts = categories[currentCategory].products
+    let allCategories = state.categories
+    let allAvailableProducts = state.availableProducts
+    let currentCategoryIndex = state.categories.findIndex((category) => category.id == categoryID)
+    const categoryProducts = allCategories[currentCategoryIndex].products
 
     categoryProducts = categoryProducts.filter(
-      (free) => !selectProductWithCategory.find((selected) => free.id == selected.id)
+      (availableProd) =>
+        !selectProductWithCategory.find((selected) => availableProd.id == selected.id)
     )
 
-    categories[currentCategory] = { ...categories[currentCategory], products: categoryProducts }
+    allCategories[currentCategoryIndex] = {
+      ...allCategories[currentCategoryIndex],
+      products: categoryProducts,
+    }
 
     dispatch({
       type: 'CATEGORIES',
-      payload: categories,
+      payload: allCategories,
     })
     selectProductWithCategory.map((prod) => {
-      allProducts.push(prod)
+      allAvailableProducts.push(prod)
     })
     dispatch({
       type: 'SET_ALL_PRODUCTS',
-      payload: allProducts,
+      payload: allAvailableProducts,
     })
 
     setSelectProductWithCategory([])
+  }
+
+  const removeCategory = () => {
+    let allCategories = state.categories
+    let allAvailableProducts = state.availableProducts
+    allCategories = state.categories.filter((category) => category.id != categoryID)
+
+    categoryProducts.map((prod) => {
+      allAvailableProducts.push(prod)
+    })
+
+    dispatch({
+      type: 'SET_ALL_PRODUCTS',
+      payload: allAvailableProducts,
+    })
+
+    dispatch({
+      type: 'CATEGORIES',
+      payload: allCategories,
+    })
   }
 
   const onChange = (isTrue, product) => {
