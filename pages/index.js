@@ -3,9 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { BsBox } from 'react-icons/bs'
 import { FiSave } from 'react-icons/fi'
 
-import Category from '../components/Category'
-import Product from '../components/Product'
-import Container from '../components/UI/Container'
+import { Container, Category, Product } from '../components'
+
 import Context from '../context/store'
 
 function Home() {
