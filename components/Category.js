@@ -16,7 +16,7 @@ function Category({ categoryName, categoryID, categoryProducts }) {
 
     allCategories[currentCategoryIndex] = {
       ...allCategories[currentCategoryIndex],
-      products: [...allCategories[currentCategoryIndex].products, ...state.selectedProducts],
+      products: [...categoryProducts, ...state.selectedProducts],
     }
 
     let remainderAvailableProducts = availableProducts.filter(
@@ -41,16 +41,16 @@ function Category({ categoryName, categoryID, categoryProducts }) {
     let allCategories = state.categories
     let allAvailableProducts = state.availableProducts
     let currentCategoryIndex = state.categories.findIndex((category) => category.id == categoryID)
-    const categoryProducts = allCategories[currentCategoryIndex].products
+    const currentCategoryProducts = categoryProducts
 
-    categoryProducts = categoryProducts.filter(
+    currentCategoryProducts = currentCategoryProducts.filter(
       (availableProd) =>
         !selectProductWithCategory.find((selected) => availableProd.id == selected.id)
     )
 
     allCategories[currentCategoryIndex] = {
       ...allCategories[currentCategoryIndex],
-      products: categoryProducts,
+      products: currentCategoryProducts,
     }
 
     dispatch({
