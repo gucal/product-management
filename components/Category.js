@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react'
+import { BsBoxSeam } from 'react-icons/bs'
+import { MdOutlineFavoriteBorder } from 'react-icons/md'
 
 import Context from '../context/store'
 
@@ -91,12 +93,15 @@ function Category({ categoryName, categoryID, categoryProducts }) {
   }
 
   return (
-    <div className="flex flex-col justify-between p-3 border border-gray-300 rounded min-h-full">
+    <div className="flex flex-col justify-between p-3 border border-gray-300 rounded h-full">
       <div>
         <div>
-          <span>{categoryName}</span>
+          <span className="flex items-center">
+            <BsBoxSeam size={30} className="mr-3" />
+            {categoryName}
+          </span>
         </div>
-        <div>
+        <div className="mt-8">
           {categoryProducts.map((product, index) => (
             <div key={index} className="my-4">
               <div key={product.id} className="my-2 flex items-center">
@@ -111,6 +116,16 @@ function Category({ categoryName, categoryID, categoryProducts }) {
               </div>
             </div>
           ))}
+          {categoryProducts.length < 1 && (
+            <div className="flex flex-col items-center text-gray-400">
+              <div>
+                <MdOutlineFavoriteBorder size={30} />
+              </div>
+              <div>
+                <span>Select products to add here.</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex justify-between">

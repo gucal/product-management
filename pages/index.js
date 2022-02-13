@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { BsBox } from 'react-icons/bs'
+import { FiSave } from 'react-icons/fi'
 
 import Category from '../components/Category'
 import Product from '../components/Product'
@@ -27,14 +29,21 @@ function Home() {
       <div className="grid grid-cols-2 gap-4 space-x-3 py-3">
         <div className="flex flex-col w-full space-y-3 h-96">
           <div className="w-full p-3 border border-gray-300 rounded">
-            <span>Available Products</span>
-            {state.freeProducts.map((product, index) => (
-              <Product key={index} product={product} />
-            ))}
+            <span className="flex items-center">
+              <BsBox size={30} className="mr-3" /> Available Products
+            </span>
+            <div className="mt-8">
+              {state.freeProducts.map((product, index) => (
+                <Product key={index} product={product} />
+              ))}
+            </div>
           </div>
           <div className="w-full p-3 border border-blue-700 rounded">
-            <span className="text-blue-700">Review</span>
-            <div className="my-6">
+            <span className="flex items-center text-blue-700">
+              <FiSave size={30} className="mr-3" />
+              Review
+            </span>
+            <div className="mt-8">
               <p>Available Products: {state.freeProducts.length}</p>
               <p>Categories: {state.categories.length}</p>
               <div className="my-6">
